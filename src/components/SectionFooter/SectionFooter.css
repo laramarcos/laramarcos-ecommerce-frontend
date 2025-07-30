@@ -29,6 +29,13 @@
     }
 }
 
+.info-icon {
+  font-size: 2rem;
+  color: #1c1c1c;
+  margin-bottom: 0.5rem;
+}
+
+
 
 @media screen and (width >=768px) {
 

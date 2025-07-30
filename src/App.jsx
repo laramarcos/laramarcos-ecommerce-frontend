@@ -14,8 +14,8 @@ import Login from './pages/Login/Login';
 import AdminGuard from './shared/guard/AdminGuard';
 import ProductDetail from './pages/ProductDetail/ProductDetail';
 import { CartProvider } from './context/CartContext';
-import { ToastContainer } from 'react-toastify'; // Importa ToastContainer
-import 'react-toastify/dist/ReactToastify.css'; // Importa los estilos CSS
+import { ToastContainer } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
 import Swal from 'sweetalert2';
 
 
@@ -37,7 +37,6 @@ export default function App() {
 
   return (
     <CartProvider>
-      {/* ToastContainer debe estar en el nivel más alto de tu app */}
       <ToastContainer 
         position="bottom-right"
         autoClose={3000}

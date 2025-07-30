@@ -1,3 +1,13 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+  faFacebook, 
+  faInstagram, 
+  faLinkedin, 
+  faWhatsapp 
+} from '@fortawesome/free-brands-svg-icons';
+import visa from '../../assets/images/Medios de pago/redi-footer-visa-removebg-preview.png';
+import mastercard from '../../assets/images/Medios de pago/redi-footer-mc-removebg-preview.png';
+import mercadoPago from '../../assets/images/Medios de pago/redi-footer-mp-removebg-preview.png';
 import './Footer.css';
 
 export default function Footer() {
@@ -7,17 +17,14 @@ export default function Footer() {
     <h3>Seguinos</h3>
     <ul>
       <li>
-        {" "}
-        <i className="fa-brands fa-facebook" /> Facebook
-      </li>
-      <li>
-        {" "}
-        <i className="fa-brands fa-instagram" /> Instragram{" "}
-      </li>
-      <li>
-        {" "}
-        <i className="fa-brands fa-linkedin" /> Linkedin
-      </li>
+  <FontAwesomeIcon icon={faFacebook} /> Facebook
+</li>
+<li>
+  <FontAwesomeIcon icon={faInstagram} /> Instagram
+</li>
+<li>
+  <FontAwesomeIcon icon={faLinkedin} /> Linkedin
+</li>
     </ul>
   </section>
   <section>
@@ -28,7 +35,7 @@ export default function Footer() {
     <h3>Contacto</h3>
     <ul>
       <li>
-        <i className="fa-brands fa-whatsapp" /> Whatsapp + 54 11 30801427
+  <FontAwesomeIcon icon={faWhatsapp} /> Whatsapp +54 11 30801427
       </li>
       <li>Email: wafflitobylari@gmail.com</li>
       <li>Direccion: Manzone 1039, Acassuso</li>
@@ -41,21 +48,9 @@ export default function Footer() {
       <li>Mercado Pago</li>
       <li>Transferencia</li>
     </ul>
-    <img
-      src="/assets/images/Medios de pago/redi-footer-mc-removebg-preview.png"
-      alt="Mastercard"
-      className="logo-buy"
-    />
-    <img
-      src="/assets/images/Medios de pago/redi-footer-mp-removebg-preview.png"
-      alt="Mercado Pago"
-      className="logo-buy"
-    />
-    <img
-      src="/assets/images/Medios de pago/redi-footer-visa-removebg-preview.png"
-      alt="Visa"
-      className="logo-buy"
-    />
+        <img src={mastercard} alt="Mastercard" className="logo-buy" />
+        <img src={mercadoPago} alt="Mercado Pago" className="logo-buy" />
+        <img src={visa} alt="Visa" className="logo-buy" />
   </section>
   <section>
     <h3>Quick links</h3>
