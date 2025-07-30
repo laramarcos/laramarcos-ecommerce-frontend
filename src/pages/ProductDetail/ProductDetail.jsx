@@ -54,9 +54,9 @@ export default function ProductDetail() {
         </div>
 
         <div className="ingredientes-detalle">
-          <h3>INGREDIENTES: </h3>
+          <h3>Instrucciones para disfrutar WAFFLITO: </h3>
           
-          <p>{product.ingredients || "Harina, huevo, leche, manteca..."}</p>
+          <p>{product.ingredients || "Del freezer, directamente lo pasamos a la tostadora o la sartén. No descongelar."}</p>
         </div>
       </div>
     </div>
