@@ -1,0 +1,95 @@
+.producto-detalle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+
+}
+.imagen-detalle img {
+    width: 400px;
+    border-radius: 10px;
+}
+
+.info {
+    max-width: 500px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.precio {
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+}
+
+.descuento {
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.agregar-carrito {
+    background: rgb(214, 174, 81);
+    color: rgb(13, 13, 13);
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+    width: 100%;
+    transition: 0.3s;
+}
+
+.agregar-carrito:hover {
+    background-color: rgb(200, 212, 108);
+    color: black;
+}
+
+.envio {
+    margin-top: 30px;
+}
+
+.envio input {
+    width: 70%;
+    padding: 10px;
+    border: 2px solid #ccc;
+}
+
+.envio button {
+    background: #333;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.ingredientes-detalle {
+    margin-top: 40px;
+    color: #333;
+}
+
+
+@media screen and (width >=768px) {
+    .product-container {
+        padding: 16px;
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+    }
+
+    .producto-detalle {
+        flex-direction: row;
+
+    }
+
+    .info {
+        text-align: left;
+        margin-left: 50px;
+        
+    }
+
+
+}

@@ -1,0 +1,97 @@
+.product-container {
+    padding-top: 16px;
+    padding-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.card {
+    width: 300px;
+    position: relative;
+    flex-wrap: wrap;
+
+
+    .card-body {
+        background-color: rgb(248, 248, 199);
+
+    }
+
+    .card-image {
+        width: 100%;
+        transition: 0.3s ease-in-out;
+        cursor: pointer;
+
+
+        &:hover {
+            filter: brightness(0.7);
+        }
+
+    }
+
+    .card-sale {
+        position: absolute;
+        background-color: rgb(71, 56, 20);
+        color: white;
+        padding: 10px 10px;
+        font-size: 12px;
+        font-weight: 500;
+        top: 10px;
+        left: 10px;
+
+    }
+
+    .card-title {
+        display: flex;
+        justify-content: center;
+        color: rgb(25, 24, 24);
+        padding: 4px;
+        text-transform: uppercase;
+
+    }
+
+    .card-info {
+
+        margin: 8px;
+        gap: 8px;
+        display: flex;
+        justify-content: center;
+
+
+        .card-price {
+            font-size: 20px;
+            color: rgb(25, 24, 24);
+            font-weight: 600;
+        }
+
+        .card-normal-price {
+            font-size: 16px;
+            color: #5c553a;
+            font-weight: 600;
+            text-decoration: line-through;
+            margin-right: 6px;
+        }
+
+
+    }
+
+    .waffle-buy {
+        padding: 10px;
+        width: 100%;
+        background-color: rgb(214, 164, 72);
+        color: rgb(33, 33, 25);
+        font-size: 16px;
+        font-weight: 600;
+        display: flex;
+        justify-content: center;
+        text-decoration: none;
+        transition: background-color .30s ease-in-out, color .30s;
+
+    }
+
+    .waffle-buy:hover {
+        background-color: rgb(71, 56, 20);
+        color: rgb(229, 218, 218);
+    }
+}

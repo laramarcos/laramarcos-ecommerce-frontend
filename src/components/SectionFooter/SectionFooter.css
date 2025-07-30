@@ -1,0 +1,40 @@
+.info-section {
+    display: flex;
+    flex-direction: column;
+    background: #ffe5e5;
+    padding: 50px;
+    border-top: 2px solid #ccc;
+}
+
+.info-box {
+    text-align: center;
+    margin: 20px;
+
+    i {
+        font-size: 24px;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    h3 {
+        font-size: 16px;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    p {
+        font-size: 14px;
+        color: #555;
+        margin: 5px 0 0;
+    }
+}
+
+
+@media screen and (width >=768px) {
+
+    .info-section {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+}

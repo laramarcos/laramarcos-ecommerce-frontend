@@ -1,0 +1,169 @@
+.main-header {
+    background-color: rgb(247, 235, 165);
+    display: flex;
+    justify-content: space-between;
+    height: 75px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+
+}
+
+.main-header {
+
+    .header-logo {
+        width: 70px;
+        padding: 5px;
+
+    }
+
+}
+
+.burger {
+    color: rgb(76, 54, 14);
+    display: flex;
+    align-items: center;
+    padding: 12px;
+}
+
+.burger-check {
+    display: none;
+}
+
+.burger-check:checked+.header-left .main-nav {
+    left: 0;
+}
+
+.header-left {
+    display: flex;
+
+}
+
+.main-nav {
+    position: absolute;
+    top: 75px;
+    left: -300px;
+    width: 300px;
+    height: calc(100vh - 75px);
+    background-color: rgb(247, 235, 165);
+    transition: left 300ms;
+
+}
+
+.hidden {
+    display: none;
+}
+
+.nav-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    list-style: none;
+    height: 100%;
+    padding-left: 24px;
+    gap: 16px;
+
+}
+
+.nav-list .nav-item {
+    display: flex;
+    align-items: center;
+}
+
+
+
+.nav-list .nav-link {
+    color: rgb(76, 54, 14);
+    padding: 10px;
+    transition: color 0.3s;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    color: rgb(200, 212, 108);
+
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 20px;
+    color: rgb(76, 54, 14);
+
+}
+
+/* Estilos para la sección de usuario */
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-name {
+  font-weight: 500;
+}
+
+.logout-button {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+.logout-button:hover {
+  text-decoration: underline;
+  color: #007bff;
+}
+
+/* Ajustes para el carrito */
+.cart-icon-container {
+  cursor: pointer;
+  position: relative;
+  margin-left: 1rem;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #ff4757;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+@media screen and (width >=768px) {
+
+    .main-header {
+
+        .burger {
+            display: none;
+        }
+
+        .main-nav {
+            position: static;
+            height: auto;
+            width: auto;
+
+            .nav-list {
+                flex-direction: row;
+            }
+        }
+    }
+
+    .header-right {
+        img {
+            display: block;
+        }
+    }
+
+}

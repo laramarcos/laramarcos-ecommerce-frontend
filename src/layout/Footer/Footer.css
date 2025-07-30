@@ -1,0 +1,42 @@
+.main-footer {
+    background-color: rgb(247, 235, 165);
+    color: rgb(25, 24, 24);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+    ul {
+        list-style: none;
+    }
+
+    section {
+        flex: 1 1 150px;
+        padding: 25px;
+    }
+
+    h3 {
+        margin-bottom: 15px;
+    }
+
+    li {
+        margin: 5px;
+    }
+
+    .logo-buy {
+        width: 20%;
+        flex-wrap: wrap;
+
+    }
+
+}
+
+
+
+@media screen and (width >=768px) {
+
+    .main-footer {
+        flex-direction: row;
+        font-size: 16px;
+        text-align: left;
+    }
+}

@@ -1,0 +1,53 @@
+.main-banner {
+    width: 100vw;
+    overflow: hidden;
+    
+}
+
+.slider-content {
+    position: relative;
+    width: 300vw;
+    display: flex;
+    height: 60vh;
+    animation: slide 10s infinite;
+
+
+    .slide {
+        width: 100vw;
+        height: 60vh;
+        object-fit: cover;
+    }
+
+}
+
+@keyframes slide {
+    0% {
+        left: 0;
+    }
+
+    25% {
+        left: 0;
+    }
+
+    35% {
+        left: -100vw;
+    }
+
+    60% {
+        left: -100vw;
+    }
+
+    65% {
+        left: -200vw;
+    }
+
+    95% {
+        left: -200vw;
+    }
+
+    100% {
+        left: 0;
+    }
+
+
+}
