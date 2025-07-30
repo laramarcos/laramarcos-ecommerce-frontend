@@ -6,12 +6,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import './AdminProduct.css';
 
-const URL = 'https://6879afa963f24f1fdca29785.mockapi.io/products';
+const URL = 'http://localhost:3000/products';
 
 export default function AdminProduct() {
   const [products, setProducts] = useState([]);
   const [editing, setEditing] = useState(false);
   const [currentId, setCurrentId] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const {
     register,
@@ -26,35 +28,73 @@ export default function AdminProduct() {
 
   const getProducts = async () => {
     try {
+      setLoading(true);
       const res = await axios.get(URL);
+
+      if (!res.data || !Array.isArray(res.data)) {
+        throw new Error('Formato de datos inválido');
+      }
+
       setProducts(res.data);
-    } catch (error) {
-      Swal.fire('Error', 'No se pudieron obtener los productos', 'error');
+      setError(null);
+    } catch (err) {
+      console.error('Error al obtener productos:', err);
+      setError('Error al cargar productos');
+      setProducts([]);
+      Swal.fire('Error', 'No se pudieron cargar los productos', 'error');
+    } finally {
+      setLoading(false);
     }
   };
 
   const submit = async (data) => {
     try {
+      const formData = new FormData();
+      formData.append('name', data.name);
+      formData.append('price', data.price);
+      formData.append('description', data.description);
+      formData.append('category', data.category);
+
+      if (data.image instanceof FileList && data.image.length > 0) {
+        formData.append('image', data.image[0]);
+      } else if (typeof data.image === 'string') {
+        formData.append('image', data.image);
+      }
+
       if (editing) {
-        await axios.put(`${URL}/${currentId}`, data);
+        await axios.put(`${URL}/${currentId}`, formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        });
         Swal.fire('Actualizado', 'Producto actualizado correctamente', 'success');
       } else {
-        await axios.post(URL, data);
+        await axios.post(URL, formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        });
         Swal.fire('Creado', 'Producto creado correctamente', 'success');
       }
+
       getProducts();
       reset();
       setEditing(false);
       setCurrentId(null);
     } catch (error) {
-      Swal.fire('Error', 'Ocurrió un error al guardar el producto', 'error');
+      console.error('Error al guardar producto:', error.response?.data);
+      Swal.fire(
+        'Error',
+        error.response?.data?.message || 'Ocurrió un error al guardar el producto',
+        'error'
+      );
     }
   };
 
   const editProduct = (product) => {
-    reset(product);
+    const formValues = {
+      ...product,
+      image: product.image?.startsWith('http') ? product.image : ''
+    };
+    reset(formValues);
     setEditing(true);
-    setCurrentId(product.id);
+    setCurrentId(product._id);
   };
 
   const deleteProduct = async (id) => {
@@ -63,58 +103,66 @@ export default function AdminProduct() {
       getProducts();
       Swal.fire('Eliminado', 'Producto eliminado correctamente', 'success');
     } catch (error) {
+      console.error('Error al eliminar producto:', error.response?.data);
       Swal.fire('Error', 'No se pudo eliminar el producto', 'error');
     }
   };
 
   return (
     <div className="admin-container">
-      <form onSubmit={handleSubmit(submit)} className="admin-form">
+      <form onSubmit={handleSubmit(submit)} className="admin-form" encType="multipart/form-data">
         <h2>{editing ? 'Editar producto' : 'Agregar producto'}</h2>
 
         <div className="input-group">
-          <label>Nombre del producto</label>
-          <input type="text" {...register('name', { required: 'Este campo es obligatorio' })} />
+          <label htmlFor="name">Nombre</label>
+          <input
+            id="name"
+            autoFocus
+            {...register('name', { required: 'El nombre es obligatorio' })}
+          />
           {errors.name && <span className="error">{errors.name.message}</span>}
         </div>
 
         <div className="input-group">
-          <label>Precio</label>
-          <input type="number" step="0.01" {...register('price', { required: 'Este campo es obligatorio' })} />
+          <label htmlFor="price">Precio</label>
+          <input
+            type="number"
+            step="0.01"
+            id="price"
+            {...register('price', { required: 'El precio es obligatorio' })}
+          />
           {errors.price && <span className="error">{errors.price.message}</span>}
         </div>
 
         <div className="input-group">
-          <label>Descripción</label>
-          <textarea {...register('description', { required: 'Este campo es obligatorio' })} />
+          <label htmlFor="description">Descripción</label>
+          <textarea
+            id="description"
+            {...register('description', { required: 'La descripción es obligatoria' })}
+          />
           {errors.description && <span className="error">{errors.description.message}</span>}
         </div>
 
         <div className="input-group">
-          <label>URL de la imagen</label>
-          <input type="url" {...register('image', { required: 'Este campo es obligatorio' })} />
-          {errors.image && <span className="error">{errors.image.message}</span>}
-        </div>
-
-        <div className="input-group">
-          <label>Fecha de creación</label>
-          <input type="date" {...register('createdAt', { required: 'Este campo es obligatorio' })} />
-          {errors.createdAt && <span className="error">{errors.createdAt.message}</span>}
-        </div>
-
-        <div className="input-group">
-          <label>Categoría</label>
-          <select {...register('category', { required: 'Este campo es obligatorio' })}>
-            <option value="">Seleccionar categoría</option>
+          <label htmlFor="category">Categoría</label>
+          <select
+            id="category"
+            {...register('category', { required: 'La categoría es obligatoria' })}
+          >
+            <option value="">Seleccione una categoría</option>
             <option value="dulce">Dulce</option>
             <option value="salado">Salado</option>
-            <option value="vegano">Vegano</option>
           </select>
           {errors.category && <span className="error">{errors.category.message}</span>}
         </div>
 
-        <button className='button-admin' type="submit">
-          {editing ? 'ACTUALIZAR' : 'CARGAR'}
+        <div className="input-group">
+          <label htmlFor="image">Imagen</label>
+          <input type="file" id="image" accept="image/*" {...register('image')} />
+        </div>
+
+        <button type="submit" className="button-admin">
+          {editing ? 'Actualizar producto' : 'Agregar producto'}
         </button>
       </form>
 
@@ -133,25 +181,59 @@ export default function AdminProduct() {
             </tr>
           </thead>
           <tbody>
-            {products.map((product) => (
-              <tr key={product.id}>
-                <td>{product.id}</td>
-                <td>{product.name}</td>
-                <td>${product.price}</td>
-                <td>{product.description}</td>
-                <td>
-                  <img src={product.image} alt={product.name} style={{ width: '50px' }} />
-                </td>
-                <td>{product.createdAt}</td>
-                <td>{product.category}</td>
-                <td>
-                  <button onClick={() => editProduct(product)}>✏️</button>
-                  <button onClick={() => deleteProduct(product.id)}>
-                    <FontAwesomeIcon icon={faTrash} />
-                  </button>
-                </td>
+            {loading ? (
+              <tr>
+                <td colSpan="8" className="text-center">Cargando productos...</td>
               </tr>
-            ))}
+            ) : error ? (
+              <tr>
+                <td colSpan="8" className="text-center error">{error}</td>
+              </tr>
+            ) : (
+              products.map((product) => (
+                <tr key={product._id}>
+                  <td>{product._id?.substring(0, 6)}...</td>
+                  <td>{product.name}</td>
+                  <td>${product.price?.toFixed(2)}</td>
+                  <td>
+                    {product.description?.substring(0, 50)}
+                    {product.description?.length > 50 ? '...' : ''}
+                  </td>
+                  <td>
+                    <img
+                      src={
+                        product.image?.startsWith('http')
+                          ? product.image
+                          : `http://localhost:3000/uploads/products/${product.image}`
+                      }
+                      alt={product.name}
+                      style={{ width: '50px' }}
+                      onError={(e) => {
+                        e.target.src = 'https://via.placeholder.com/50';
+                        e.target.alt = 'Imagen no disponible';
+                      }}
+                    />
+                  </td>
+                  <td>
+                    {product.createdAt
+                      ? new Date(product.createdAt).toLocaleDateString()
+                      : 'N/A'}
+                  </td>
+                  <td>{product.category}</td>
+                  <td>
+                    <button onClick={() => editProduct(product)}>✏️</button>
+                    <button onClick={() => deleteProduct(product._id)}>
+                      <FontAwesomeIcon icon={faTrash} />
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
+            {!loading && !error && products.length === 0 && (
+              <tr>
+                <td colSpan="8" className="text-center">No hay productos disponibles</td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
